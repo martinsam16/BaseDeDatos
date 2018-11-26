@@ -8,7 +8,7 @@ En este repositorio iremos trabajando con una BD referente a alquileres de vivie
 1. **Laboratorio 01:** 
 Creando el Script de Estructura de BD.
 - **Git:** 
-< Iniciar git
+ Iniciar git
  <init>
 *    git commit -m 
 *    git log //muestra puntos de referencia
