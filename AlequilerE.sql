@@ -34,3 +34,4 @@ create table if not exists persona(
     ubigeo_codubi char(6),
     CONSTRAINT codper_pk PRIMARY KEY (codper)
 );
+/*DZFDF*/
