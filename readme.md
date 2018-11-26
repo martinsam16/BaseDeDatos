@@ -6,11 +6,11 @@ En este repositorio iremos trabajando con una BD referente a alquileres de vivie
 1. **Laboratorio 01:** 
 Creando el Script de Estructura de BD.
 - **Git:** Fundamentos básicos de Git.
-    Estados:
-        Working Directory
-        Staging Area
-        Git Directory (repositorio)
-
+    * Estados:
+       - Working Directory
+       - Staging Area
+       - Git Directory (repositorio)
+- - asd
 *    git init
 *    git add .
 *    git commit -m "Mensaje descriptivo"
