@@ -1,5 +1,6 @@
 /*create database Alquiler char set utf-8;*/
 use dbAlquiler;
+
 create table if not exists persona(
     codper int PRIMARY key auto_increment,
     nomper VARCHAR(100),

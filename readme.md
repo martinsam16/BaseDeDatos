@@ -1,5 +1,14 @@
-# Caso de Modelamiento de BD Alquiler
-En este laboratorio desarrollaremos todos los Scripts de BD Alquiler, desde la Estructura hasta las consultas necesarias.
+Descripción
+========
+# Elaborando mi BD Alquiler
+En este repositorio iremos trabajando con una BD referente a alquileres de vivienda.
 
 ## Laboratorios paso a paso
-- **Laboratorio 01:** 1En este laboratorio realizaremos el Script de Estructura de BD Alquiler.
+
+1. **Laboratorio 01:** 
+Creando el Script de Estructura de BD.
+- **Git:** 
+* init
+* git commit -m "Mensaje descriptivo"
+* git log //muestra puntos de referencia
+- **MD:** MarkDown
