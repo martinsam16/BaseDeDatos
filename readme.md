@@ -10,7 +10,6 @@ Creando el Script de Estructura de BD.
        - Working Directory
        - Staging Area
        - Git Directory (repositorio)
-- - asd
 *    git init
 *    git add .
 *    git commit -m "Mensaje descriptivo"
