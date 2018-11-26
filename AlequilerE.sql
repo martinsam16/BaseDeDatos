@@ -1,6 +1,10 @@
-/*create database Alquiler char set utf-8;*/
+/*show databases;*/
+/*create database dbAlquiler char set utf-8;*/
 use dbAlquiler;
-show databases;
+
+/*Mostrar database en uso*/
+select database();
+
 create table if not exists persona(
     codper int PRIMARY key auto_increment,
     nomper VARCHAR(100),
