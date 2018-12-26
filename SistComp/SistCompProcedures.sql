@@ -1,4 +1,18 @@
 USE SISTCOMP;
+/*DROP PROCEDURE ACCION;*/
+CREATE PROCEDURE PROLOG(
+    IN _DNIPER CHAR(8),
+    IN _USRLOG varchar(30),
+    IN _PSWLOG varchar(10)
+)
+BEGIN
+    IF EXISTS(SELECT * FROM LOGIN WHERE CODLOG = DEVCODLOG(_DNIPER)) THEN
+        UPDATE LOGIN SET USRLOG = _USRLOG, PSWLOG = _PSWLOG WHERE CODLOG = DEVCODLOG(_DNIPER);
+    ELSE
+        INSERT INTO LOGIN (PERSONA_CODPER, USRLOG, PSWLOG, ESTLOG)
+        VALUES (DEVCODPER(_DNIPER), _USRLOG, _PSWLOG, 'A');
+    END IF;
+END;
 
 CREATE PROCEDURE ACCION(
     IN _NOMPER VARCHAR(100),
@@ -10,21 +24,42 @@ CREATE PROCEDURE ACCION(
 )
 BEGIN
     CASE TIPAC
+    
     WHEN 'RE' THEN
         IF NOT EXISTS(SELECT * FROM PERSONA WHERE DNIPER = _DNIPER) THEN 
             INSERT INTO PERSONA (NOMPER, APEPER, DNIPER, TLFPER, TIPPER)
             VALUES (_NOMPER, _APEPER, _DNIPER, _TLFPER, _TIPPER);
-            INSERT INTO LOGIN (PERSONA_CODPER, USRPER, PSWPER)
-            VALUES (DEVCODPER(_DNIPER), 
-            LOWER(CONCAT( SUBSTRING(_NOMPER,1,2), SUBSTRING(_APEPER,1,2), SUBSTRING(_DNIPER,1,2) )), 
-            LOWER(CONCAT('@',_DNIPER)) );/*Recordar hacer algoritmo de cifrado y descifrado para la contaseña xd*/
+            IF NOT (_TIPPER = 'C') THEN
+                INSERT INTO LOGIN (PERSONA_CODPER, USRLOG, PSWLOG, ESTLOG)
+                VALUES (DEVCODPER(_DNIPER), 
+                LOWER(CONCAT( SUBSTRING(_NOMPER,1,2), SUBSTRING(_APEPER,1,2), SUBSTRING(_DNIPER,1,2) )), 
+                LOWER(CONCAT('@',_DNIPER)),
+                'A');/*Recordar hacer algoritmo de cifrado y descifrado para la contaseña xd*/
+            END IF;
         END IF;
+
     WHEN 'ED' THEN
+
         UPDATE PERSONA SET
             NOMPER = _NOMPER, APEPER = _APEPER, TLFPER = _TLFPER, TIPPER = _TIPPER
             WHERE DNIPER = _DNIPER;
+            IF EXISTS(SELECT * FROM LOGIN WHERE CODLOG = DEVCODLOG(_DNIPER)) THEN
+                IF _TIPPER = 'C' THEN
+                    UPDATE LOGIN SET
+                        ESTLOG ='I' WHERE CODLOG = DEVCODLOG(_DNIPER);
+                ELSE
+                    UPDATE LOGIN SET
+                        ESTLOG = 'A' WHERE CODLOG = DEVCODLOG(_DNIPER);
+                END IF;
+            ELSE
+
+            END IF;
+
     WHEN 'EL' THEN
         DELETE FROM LOGIN WHERE PERSONA_CODPER = DEVCODLOG(_DNIPER);
         DELETE FROM PERSONA WHERE DNIPER = _DNIPER;
+
+
     END CASE;
+
 END;
