@@ -6,7 +6,7 @@ CREATE PROCEDURE PROLOG(
     IN _PSWLOG varchar(10)
 )
 BEGIN
-    IF EXISTS(SELECT * FROM LOGIN WHERE CODLOG = DEVCODLOG(_DNIPER)) THEN
+    IF EXISTS(SELECT CODLOG FROM LOGIN WHERE CODLOG = DEVCODLOG(_DNIPER)) THEN
         UPDATE LOGIN 
             SET USRLOG = _USRLOG, 
             PSWLOG = _PSWLOG 
@@ -28,62 +28,102 @@ CREATE PROCEDURE ACCIONPERSONA(
 )
 BEGIN
     CASE TIPAC
-    
-    WHEN 'RE' THEN
-        IF NOT EXISTS(SELECT * FROM PERSONA WHERE DNIPER = _DNIPER) THEN 
+        
+        WHEN 'RE' THEN
+            IF NOT EXISTS(SELECT DNIPER FROM PERSONA WHERE DNIPER = _DNIPER) THEN 
 
-            INSERT INTO PERSONA (NOMPER, APEPER, DNIPER, TLFPER, TIPPER)
-                VALUES (_NOMPER, _APEPER, _DNIPER, _TLFPER, _TIPPER);
+                INSERT INTO PERSONA (NOMPER, APEPER, DNIPER, TLFPER, TIPPER)
+                    VALUES (_NOMPER, _APEPER, _DNIPER, _TLFPER, _TIPPER);
 
-            IF NOT (_TIPPER = 'C') THEN
-                INSERT INTO LOGIN (PERSONA_CODPER, USRLOG, PSWLOG, ESTLOG)
-                    VALUES (DEVCODPER(_DNIPER), 
-                        LOWER(CONCAT( SUBSTRING(_NOMPER,1,2), SUBSTRING(_APEPER,1,2), SUBSTRING(_DNIPER,1,2) )), 
-                        LOWER(CONCAT('@',_DNIPER)),
-                        'A');/*Recordar hacer algoritmo de cifrado y descifrado para la contaseña xd*/
+                IF NOT (_TIPPER = 'C') THEN
+                    INSERT INTO LOGIN (PERSONA_CODPER, USRLOG, PSWLOG, ESTLOG)
+                        VALUES (DEVCODPER(_DNIPER), 
+                            LOWER(CONCAT( SUBSTRING(_NOMPER,1,2), SUBSTRING(_APEPER,1,2), SUBSTRING(_DNIPER,1,2) )), 
+                            LOWER(CONCAT('@',_DNIPER)),
+                            'A');/*Recordar hacer algoritmo de cifrado y descifrado para la contaseña xd*/
+                END IF;
             END IF;
-        END IF;
 
-    WHEN 'ED' THEN
+        WHEN 'ED' THEN
 
-        UPDATE PERSONA 
-            SET NOMPER = _NOMPER, 
-                APEPER = _APEPER, 
-                TLFPER = _TLFPER, 
-                TIPPER = _TIPPER
-            WHERE DNIPER = _DNIPER;
+            UPDATE PERSONA 
+                SET NOMPER = _NOMPER, 
+                    APEPER = _APEPER, 
+                    TLFPER = _TLFPER, 
+                    TIPPER = _TIPPER
+                WHERE DNIPER = _DNIPER;
 
-        IF EXISTS(SELECT * FROM LOGIN WHERE CODLOG = DEVCODLOG(_DNIPER)) THEN
-            IF _TIPPER = 'C' THEN
-                UPDATE LOGIN 
-                    SET ESTLOG ='I' 
-                    WHERE CODLOG = DEVCODLOG(_DNIPER);
-            ELSE
-                UPDATE LOGIN 
-                    SET ESTLOG = 'A' 
-                    WHERE CODLOG = DEVCODLOG(_DNIPER);
+            IF EXISTS(SELECT * FROM LOGIN WHERE CODLOG = DEVCODLOG(_DNIPER)) THEN
+                IF _TIPPER = 'C' THEN
+                    UPDATE LOGIN 
+                        SET ESTLOG ='I' 
+                        WHERE CODLOG = DEVCODLOG(_DNIPER);
+                ELSE
+                    UPDATE LOGIN 
+                        SET ESTLOG = 'A' 
+                        WHERE CODLOG = DEVCODLOG(_DNIPER);
+                END IF;
+                /*ELSE THEN*/
+
             END IF;
-            /*ELSE THEN*/
 
-        END IF;
+        WHEN 'EL' THEN
+            DELETE FROM LOGIN 
+                WHERE PERSONA.PERSONA_CODPER = DEVCODLOG(_DNIPER);
 
-    WHEN 'EL' THEN
-        DELETE FROM LOGIN 
-            WHERE PERSONA.PERSONA_CODPER = DEVCODLOG(_DNIPER);
-
-        DELETE FROM PERSONA 
-            WHERE PERSONA.DNIPER = _DNIPER;
-
+            DELETE FROM PERSONA 
+                WHERE PERSONA.DNIPER = _DNIPER;
 
     END CASE;
-
 END;
 
+CREATE PROCEDURE ACCIONMARCA(
+    IN _NOMMAR VARCHAR(50),
+    IN TIPAC CHAR(2)
+)
+BEGIN
+    CASE TIPAC
+        WHEN 'RE' THEN
+            IF NOT EXISTS (SELECT MARCA.NOMMAR FROM MARCA WHERE NOMMAR = _NOMMAR) THEN
+                INSERT INTO MARCA 
+                    (NOMMAR)
+                    VALUES (_NOMMAR);
+            END IF;
+        
+        WHEN 'ED' THEN
+            IF NOT EXISTS (SELECT MARCA.NOMMAR FROM MARCA WHERE MARCA.NOMMAR = _NOMMAR) THEN
+                UPDATE MARCA
+                    SET NOMMAR = _NOMMAR
+                    WHERE NOMMAR = _NOMMAR;
+            END IF;
+    
+    END CASE;
+END;
+
+CREATE PROCEDURE ACCIONMODELO(
+    IN _NOMMAR VARCHAR(50),
+    IN _NOMMOD VARCHAR(100),
+    IN TIPAC CHAR(2)
+)
+BEGIN
+    CASE TIPAC
+        WHEN 'RE' THEN
+            IF NOT EXISTS (SELECT MODELO.NOMMOD FROM MODELO WHERE MODELO.NOMMOD = _NOMMOD) THEN
+                IF EXISTS(SELECT MARCA.NOMMAR FROM MARCA WHERE MARCA.NOMMAR = _NOMMAR) THEN
+                    INSERT INTO MODELO
+                        (NOMMOD, MARCA_CODMAR)
+                        VALUES (_NOMMOD,
+                            DEVCODMAR(_NOMMAR)
+                        );
+                END IF;
+            END IF;
+            
+    END CASE;
+END;
 
 CREATE PROCEDURE ACCIONPRODUCTO(
-    IN _CODPRO int,
     IN _NOMPRO varchar(200),
-    IN _MODELO_CODMOD int,
+    IN _NOMMOD VARCHAR(100),
     IN _SERPRO varchar(100) ,
     IN _PREPRO double(8,2),
     IN _URLIMGPRO varchar(300),
@@ -92,24 +132,25 @@ CREATE PROCEDURE ACCIONPRODUCTO(
 BEGIN
     CASE TIPAC
 
-    WHEN 'RE' THEN
-        IF NOT EXISTS (SELECT * FROM PRODUCTO WHERE SERPRO = _SERPRO) THEN
-            INSERT INTO PRODUCTO 
-                (NOMPRO, MODELO_CODMOD, SERPRO, PREPRO, URLIMGPRO) 
-                VALUES (_NOMPRO, _MODELO_CODMOD, _SERPRO, _PREPRO, _URLIMGPRO);
-    
-    WHEN 'ED' THEN
-        UPDATE PRODUCTO 
-            SET NOMPRO = _NOMPRO,
-                MODELO_CODMOD = _MODELO_CODMOD,
-                SERPRO = _SERPRO,
-                PREPRO = _PREPRO,
-                URLIMGPRO = _URLIMGPRO
-            WHERE PRODUCTO.SERPRO = _SERPRO;
-    
-    WHEN 'EL' THEN
-        DELETE FROM PRODUCTO
-            WHERE PRODUCTO.CODPRO = _CODPRO;
-    
+        WHEN 'RE' THEN
+            IF NOT EXISTS (SELECT SERPRO FROM PRODUCTO WHERE SERPRO = _SERPRO) THEN
+                INSERT INTO PRODUCTO 
+                    (NOMPRO, MODELO_CODMOD, SERPRO, PREPRO, URLIMGPRO) 
+                    VALUES (_NOMPRO, DEVCODMOD(_NOMMOD), _SERPRO, _PREPRO, _URLIMGPRO);
+            END IF;
+        
+        WHEN 'ED' THEN
+            UPDATE PRODUCTO 
+                SET NOMPRO = _NOMPRO,
+                    MODELO_CODMOD = _MODELO_CODMOD,
+                    SERPRO = _SERPRO,
+                    PREPRO = _PREPRO,
+                    URLIMGPRO = _URLIMGPRO
+                WHERE PRODUCTO.SERPRO = _SERPRO;
+        
+        WHEN 'EL' THEN 
+            DELETE FROM PRODUCTO
+                WHERE PRODUCTO.SERPRO = _SERPRO;
+    END CASE;
 
 END;
