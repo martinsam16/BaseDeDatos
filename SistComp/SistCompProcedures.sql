@@ -79,6 +79,7 @@ END;
 
 CREATE PROCEDURE ACCIONMARCA(
     IN _NOMMAR VARCHAR(50),
+    IN _NOMMARMOD VARCHAR(50),
     IN TIPAC CHAR(2)
 )
 BEGIN
@@ -91,11 +92,9 @@ BEGIN
             END IF;
         
         WHEN 'ED' THEN
-            IF NOT EXISTS (SELECT MARCA.NOMMAR FROM MARCA WHERE MARCA.NOMMAR = _NOMMAR) THEN
-                UPDATE MARCA
-                    SET NOMMAR = _NOMMAR
-                    WHERE NOMMAR = _NOMMAR;
-            END IF;
+            UPDATE MARCA
+                SET NOMMAR = _NOMMARMOD
+                WHERE NOMMAR = _NOMMAR;
     
     END CASE;
 END;
