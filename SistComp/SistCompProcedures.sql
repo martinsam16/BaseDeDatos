@@ -102,6 +102,7 @@ END;
 CREATE PROCEDURE ACCIONMODELO(
     IN _NOMMAR VARCHAR(50),
     IN _NOMMOD VARCHAR(100),
+    IN _NOMMODNUEVO VARCHAR(100),
     IN TIPAC CHAR(2)
 )
 BEGIN
@@ -116,6 +117,10 @@ BEGIN
                         );
                 END IF;
             END IF;
+        WHEN 'ED' THEN
+            UPDATE MODELO
+                SET NOMMOD = _NOMMODNUEVO
+                WHERE NOMMOD = _NOMMOD; 
             
     END CASE;
 END;
@@ -141,7 +146,7 @@ BEGIN
         WHEN 'ED' THEN
             UPDATE PRODUCTO 
                 SET NOMPRO = _NOMPRO,
-                    MODELO_CODMOD = _MODELO_CODMOD,
+                    MODELO_CODMOD = DEVCODMOD(_NOMMOD),
                     SERPRO = _SERPRO,
                     PREPRO = _PREPRO,
                     URLIMGPRO = _URLIMGPRO
