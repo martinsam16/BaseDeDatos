@@ -1,5 +1,9 @@
-CREATE DATABASE iVentas CHARACTER SET UTF8;
+-- Created by Vertabelo (http://vertabelo.com)
+-- Last modification date: 2019-01-16 17:33:24.888
+CREATE DATABASE iVentas charset utf8;
 USE iVentas;
+-- tables
+-- Table: DETALLE_VENTA
 CREATE TABLE DETALLE_VENTA (
     CODDETVEN int NOT NULL,
     PRODUCTO_CODPRO int NOT NULL,
@@ -56,16 +60,27 @@ CREATE TABLE PRODUCTO (
     SERPRO varchar(100) NOT NULL,
     PREPRO double(8,2) NOT NULL,
     URLIMGPRO varchar(300) NOT NULL,
+    CARPRO varchar(500) NOT NULL COMMENT 'CAracteristicas Tecnicas',
+    CANTPRO char(8) NOT NULL,
+    ESTPRO char(1) NOT NULL,
+    FECGARPRO date NOT NULL,
     CONSTRAINT PRODUCTO_pk PRIMARY KEY (CODPRO)
 );
 
+-- Table: PROVEEDOR
+/*
+CREATE TABLE PROVEEDOR (
+
+);
+*/
 -- Table: VENTA
 CREATE TABLE VENTA (
     CODVEN int NOT NULL AUTO_INCREMENT,
     CODPERCOMVEN int NOT NULL,
     CODPERVENVEN int NOT NULL,
     FECVEN date NOT NULL,
-    HOVEN int NOT NULL,
+    HOVEN time NOT NULL,
+    TIPVEN char(1) NOT NULL,
     CONSTRAINT VENTA_pk PRIMARY KEY (CODVEN)
 );
 

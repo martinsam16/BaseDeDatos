@@ -1,4 +1,4 @@
-USE SISTCOMP;
+USE iVentas;
 
 SELECT AUTENTICAR ('admin','admin');
 SELECT AUTENTICAR ('masa72','@72720455');
