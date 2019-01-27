@@ -24,6 +24,8 @@ CREATE PROCEDURE ACCIONPERSONA(
     IN _DNIPER CHAR(8),
     IN _TLFPER CHAR(12),
     IN _TIPPER CHAR(1),
+    IN _DISTRITO VARCHAR(50),
+    IN _DIRPER VARCHAR(50),
     IN TIPAC CHAR(2)
 )
 BEGIN
@@ -32,13 +34,13 @@ BEGIN
         WHEN 'RE' THEN
             IF NOT EXISTS(SELECT DNIPER FROM PERSONA WHERE DNIPER = _DNIPER) THEN 
 
-                INSERT INTO PERSONA (NOMPER, APEPER, DNIPER, TLFPER, TIPPER)
-                    VALUES (_NOMPER, _APEPER, _DNIPER, _TLFPER, _TIPPER);
+                INSERT INTO PERSONA (NOMPER, APEPER, DNIPER, TLFPER, TIPPER, DISTRITO_CODDIS, DIRPER)
+                    VALUES (_NOMPER, _APEPER, _DNIPER, _TLFPER, _TIPPER, DEVCODDIS(_DISTRITO), _DIRPER);
 
                 IF NOT (_TIPPER = 'C') THEN
                     INSERT INTO LOGIN (PERSONA_CODPER, USRLOG, PSWLOG, ESTLOG)
                         VALUES (DEVCODPER(_DNIPER), 
-                            LOWER(CONCAT( SUBSTRING(_NOMPER,1,2), SUBSTRING(_APEPER,1,2), SUBSTRING(_DNIPER,1,2) )), 
+                            _DNIPER, 
                             LOWER(CONCAT('@',_DNIPER)),
                             'A');/*Recordar hacer algoritmo de cifrado y descifrado para la contaseña xd*/
                 END IF;
@@ -50,7 +52,9 @@ BEGIN
                 SET NOMPER = _NOMPER, 
                     APEPER = _APEPER, 
                     TLFPER = _TLFPER, 
-                    TIPPER = _TIPPER
+                    TIPPER = _TIPPER,
+                    DISTRITO_CODDIS = DEVCODDIS(_DISTRITO),
+                    DIRPER = _DIRPER
                 WHERE DNIPER = _DNIPER;
 
             IF EXISTS(SELECT * FROM LOGIN WHERE CODLOG = DEVCODLOG(_DNIPER)) THEN

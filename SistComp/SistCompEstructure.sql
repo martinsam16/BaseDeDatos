@@ -1,7 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
 -- Last modification date: 2019-01-26 17:33:20.538
-SELECT version();
-DROP DATABASE iVentas;
 CREATE DATABASE iVentas CHAR SET UTF8;
 USE iVentas;
 -- tables
