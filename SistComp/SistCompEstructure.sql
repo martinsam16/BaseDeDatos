@@ -1,10 +1,9 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2019-01-27 14:57:52.99
-
--- tables
--- Table: DEPARTAMENTO
+-- Last modification date: 2019-01-29 12:38:40.597
 CREATE DATABASE iVentas char set utf8;
 USE iVentas;
+-- tables
+-- Table: DEPARTAMENTO
 CREATE TABLE DEPARTAMENTO (
     CODDEP int NOT NULL COMMENT 'Código del Departamento',
     NOMDEP varchar(50) NOT NULL COMMENT 'Nombre del Departamento',
@@ -36,9 +35,10 @@ CREATE TABLE DISTRITO (
 -- Table: EMPRESA
 CREATE TABLE EMPRESA (
     CODEMP int NOT NULL AUTO_INCREMENT COMMENT 'Código de la Empresa',
+    NOMEMP varchar(50) NOT NULL,
     RUCEMP char(11) NOT NULL COMMENT 'RUC de la Empresa',
     TLFEMP char(12) NOT NULL COMMENT 'Teléfono de la Empresa',
-    EMAILEMP varchar(30) NOT NULL COMMENT 'Correo de la Empresa',
+    EMAILEMP varchar(30) NULL COMMENT 'Correo de la Empresa',
     PERSONA_CODPER_REPLEG int NOT NULL COMMENT 'Representante Legal de la Empresa',
     TIPEMP char(1) NOT NULL COMMENT '1: EIRL
 2: SRL
@@ -109,7 +109,7 @@ Procesador, pantalla, resolucion, ram, etc',
 A - Activo
 S - Suspendido
 I - Inactivo',
-    FECGARPRO date NOT NULL COMMENT 'Fecha de Garantía del Producto',
+    FECGARPRO varchar(10) NOT NULL COMMENT 'Fecha de Garantía del Producto',
     EMPRESA_CODEMP_PROV int NOT NULL COMMENT 'Código del Proveedor del Producto',
     CONSTRAINT PRODUCTO_pk PRIMARY KEY (CODPRO)
 );

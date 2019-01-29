@@ -1,4 +1,4 @@
-use iVentas;
+USE iVentas;
 INSERT INTO DEPARTAMENTO (CODDEP, NOMDEP)
     VALUES
     (1, 'AMAZONAS'),
