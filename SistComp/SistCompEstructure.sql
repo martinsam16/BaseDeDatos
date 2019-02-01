@@ -3,6 +3,7 @@
 
 -- tables
 -- Table: DEPARTAMENTO
+-- DROP DATABASE iVentas;
 CREATE DATABASE iVentas CHAR SET utf8;
 USE iVentas;
 CREATE TABLE DEPARTAMENTO (

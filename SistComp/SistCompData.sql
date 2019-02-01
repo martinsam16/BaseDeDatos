@@ -1,5 +1,4 @@
 USE iVentas;
-SELECT * FROM PERSONA;
 INSERT INTO PERSONA 
     (NOMPER, APEPER, DOCPER, TLFPER, TIPPER, DISTRITO_CODDIS_DISPER, DIRPER, USRLOGPER, PSWLOGPER, ESTLOGPER) 
     VALUES 
@@ -8,6 +7,8 @@ INSERT INTO PERSONA
     ('KOWALSKI','GUARANA','12345678','+51999999999','I',16,'Muy muy lejano','inventariador','inventariador','A'),
     ('LENOVO LENEVO','LA MANO','88887876','+51999999999','C',14,'Dimelo','','','I'),
     ('EPSON COMPANY','','12345678912','+51123456789','E',12,'NOC','','','I');
+
+SELECT * FROM PERSONA;
 
 INSERT INTO MARCA 
     (NOMMAR) 
@@ -26,8 +27,8 @@ INSERT INTO MODELO
 INSERT INTO PRODUCTO 
     (NOMPRO, MODELO_CODMOD_MODPRO, SERPRO, PREPRO, URLIMGPRO, ATRIBPRO, ESTPRO, FECGARPRO, PERSONA_CODPER_PROVPRO) 
     VALUES 
-    ('CELULAR',1,'xxx-xxx-xxx',20.2,'https://media.aws.alkosto.com/media/catalog/product/cache/6/image/660x441/69ace863370f34bdf190e4e164b6e123/f/o/fotos_equipos_j6_frente_1.jpg','JSON','A',"2018-12-12",10),
-    ('IPHONE XS',2,'yyy-yyy-yyy',2000.99,'https://i.gadgets360cdn.com/products/large/1536782640_635_iphone_xs.jpg','Pantalla: AMOLED','A',"2019-12-12",10);
+    ('CELULAR',1,'xxx-xxx-xxx',20.2,'https://media.aws.alkosto.com/media/catalog/product/cache/6/image/660x441/69ace863370f34bdf190e4e164b6e123/f/o/fotos_equipos_j6_frente_1.jpg','JSON','A',"2018-12-12",5),
+    ('IPHONE XS',2,'yyy-yyy-yyy',2000.99,'https://i.gadgets360cdn.com/products/large/1536782640_635_iphone_xs.jpg','Pantalla: AMOLED','A',"2019-12-12",5);
 
 
 
