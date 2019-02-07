@@ -112,7 +112,7 @@ C - Crédito',
 
 -- Table: VENTA_DETALLE
 CREATE TABLE VENTA_DETALLE (
-    CODDETVEN int NOT NULL COMMENT 'Código del Detalle de la Venta',
+    CODDETVEN int NOT NULL AUTO_INCREMENT COMMENT 'Código del Detalle de la Venta',
     VENTA_CODVEN_VENVEN int NOT NULL COMMENT 'Código de la Venta',
     PRODUCTO_CODPRO_PROVEN int NOT NULL COMMENT 'Código del Producto que se vendió',
     CANTPROVEN int NOT NULL COMMENT 'Cantidad del Producto vendido',
