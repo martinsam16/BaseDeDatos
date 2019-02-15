@@ -1,6 +1,7 @@
 -- Created by Vertabelo (http://vertabelo.com)
 -- Last modification date: 2018-11-09 16:58:28.695
-
+CREATE DATABASE TransferenciaDeEquipos char SET utf8;
+use TransferenciaDeEquipos;
 -- tables
 -- Table: DETALLE_TRANFERENCIA
 CREATE TABLE DETALLE_TRANFERENCIA (

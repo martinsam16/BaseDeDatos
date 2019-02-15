@@ -10,6 +10,12 @@ INSERT INTO PERSONA
 
 SELECT * FROM PERSONA;
 
+INSERT INTO CATEGORIA (NOMCAT)
+    VALUES 
+    ('CELULAR'),
+    ('TELEVISOR'),
+    ('REFRIGERADORAS');
+
 INSERT INTO MARCA 
     (NOMMAR) 
     VALUES 
@@ -25,10 +31,10 @@ INSERT INTO MODELO
         ('XS2019',4);
 
 INSERT INTO PRODUCTO 
-    (NOMPRO, MODELO_CODMOD_MODPRO, SERPRO, PREPRO, URLIMGPRO, ATRIBPRO, ESTPRO, FECGARPRO, PERSONA_CODPER_PROVPRO) 
+    (NOMPRO, MODELO_CODMOD_MODPRO, SERPRO, PREPRO, URLIMGPRO, ATRIBPRO, ESTPRO, FECGARPRO, PERSONA_CODPER_PROVPRO,CATEGORIA_CODCAT_CATPRO) 
     VALUES 
-    ('CELULAR',1,'xxx-xxx-xxx',20.2,'https://media.aws.alkosto.com/media/catalog/product/cache/6/image/660x441/69ace863370f34bdf190e4e164b6e123/f/o/fotos_equipos_j6_frente_1.jpg','JSON','A',"2018-12-12",5),
-    ('IPHONE XS',2,'yyy-yyy-yyy',2000.99,'https://i.gadgets360cdn.com/products/large/1536782640_635_iphone_xs.jpg','Pantalla: AMOLED','A',"2019-12-12",5);
+    ('CELULAR',1,'xxx-xxx-xxx',20.2,'https://media.aws.alkosto.com/media/catalog/product/cache/6/image/660x441/69ace863370f34bdf190e4e164b6e123/f/o/fotos_equipos_j6_frente_1.jpg','JSON','A',"2018-12-12",5,1),
+    ('IPHONE XS',2,'yyy-yyy-yyy',2000.99,'https://i.gadgets360cdn.com/products/large/1536782640_635_iphone_xs.jpg','Pantalla: AMOLED','A',"2019-12-12",5,1);
 
 
 
