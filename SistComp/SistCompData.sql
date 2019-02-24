@@ -6,9 +6,8 @@ INSERT INTO PERSONA
     ('MARIA DEL ROSARIO','DELGADO REVATTA','87654321','+51','V',15,'De Narnia :v','vendedor','vendedor','A'),
     ('KOWALSKI','GUARANA','12345678','+51999999999','I',16,'Muy muy lejano','inventariador','inventariador','A'),
     ('LENOVO LENEVO','LA MANO','88887876','+51999999999','C',14,'Dimelo','','','I'),
+    ('COMPRA DOR','LA MANO','81887876','+51399999999','C',14,'gg','','','I'),
     ('EPSON COMPANY','','12345678912','+51123456789','E',12,'NOC','','','I');
-
-SELECT * FROM PERSONA;
 
 INSERT INTO CATEGORIA (NOMCAT)
     VALUES 
@@ -28,13 +27,26 @@ INSERT INTO MODELO
     (NOMMOD, MARCA_CODMAR_MARMOD) 
         VALUES 
         ('V200',1),
-        ('XS2019',4);
+        ('XS2019',4),
+        ('GG',2);
 
 INSERT INTO PRODUCTO 
     (NOMPRO, MODELO_CODMOD_MODPRO, SERPRO, PREPRO, URLIMGPRO, ATRIBPRO, ESTPRO, FECGARPRO, PERSONA_CODPER_PROVPRO,CATEGORIA_CODCAT_CATPRO) 
     VALUES 
     ('CELULAR',1,'xxx-xxx-xxx',20.2,'https://media.aws.alkosto.com/media/catalog/product/cache/6/image/660x441/69ace863370f34bdf190e4e164b6e123/f/o/fotos_equipos_j6_frente_1.jpg','JSON','A',"2018-12-12",5,1),
     ('IPHONE XS',2,'yyy-yyy-yyy',2000.99,'https://i.gadgets360cdn.com/products/large/1536782640_635_iphone_xs.jpg','Pantalla: AMOLED','A',"2019-12-12",5,1);
+
+INSERT INTO VENTA
+    (CODPER_VENVEN, FECVEN, HOVEN, TIPVEN, CODPER_COMVEN, NUMBF)
+    VALUES
+    (2,'2019-02-12','14:00','B',4,0),
+    (2,'2019-02-12','14:00','F',6,0);
+
+INSERT INTO VENTA_DETALLE
+    (VENTA_CODVEN_VENVEN, PRODUCTO_CODPRO_PROVEN, CANTPROVEN, ESTVEN)
+    VALUES
+    (1,1,1,'A'),
+    (2,2,3,'A');
 
 
 

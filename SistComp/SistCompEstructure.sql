@@ -1,9 +1,9 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2019-02-15 14:52:40.253
-CREATE DATABASE iVentas CHAR SET utf8;
+-- Last modification date: 2019-02-24 16:35:10.319
+CREATE DATABASE iVentas char set utf8;
+USE iVentas;
 -- tables
 -- Table: CATEGORIA
-USE iVentas;
 CREATE TABLE CATEGORIA (
     CODCAT int NOT NULL AUTO_INCREMENT COMMENT 'Codigo categoria del producto',
     NOMCAT varchar(30) NOT NULL COMMENT 'Nombre de la Categoria',
@@ -101,6 +101,7 @@ F - Factura
 E - Electrónica
 C - Crédito',
     CODPER_COMVEN int NOT NULL COMMENT 'Código de la Persona que compró el Producto',
+    NUMBF int NOT NULL,
     CONSTRAINT VENTA_pk PRIMARY KEY (CODVEN)
 );
 
